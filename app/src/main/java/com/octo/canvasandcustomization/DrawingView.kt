@@ -83,13 +83,7 @@ class DrawingView(
         return true
     }
 
-
-    internal inner class CustomPath(
-        var color: Int,
-        var brushThickness: Float
-    ) : Path() {
-
-    }
+    internal inner class CustomPath(var color: Int, var brushThickness: Float) : Path()
 }
 
 

@@ -10,6 +10,8 @@
     <com.octo.canvasandcustomization.DrawingView
         android:id="@+id/dv_drawing"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@drawable/background_drawing_layout" />
 
 </LinearLayout>
