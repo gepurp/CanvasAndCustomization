@@ -3,6 +3,7 @@ package com.octo.canvasandcustomization
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 
@@ -81,6 +82,15 @@ class DrawingView(
         }
         invalidate()
         return true
+    }
+
+    fun setBushSize(s: Float) {
+        brushSize = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            s,
+            resources.displayMetrics
+        )
+        drawPaint!!.strokeWidth = brushSize
     }
 
     internal inner class CustomPath(var color: Int, var brushThickness: Float) : Path()
