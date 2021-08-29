@@ -34,6 +34,7 @@ class DrawingView(
         }
         drawPath = CustomPath(color, brushSize)
         canvasPaint = Paint(Paint.DITHER_FLAG)
+        // TODO: Delete later
         brushSize = 20.toFloat()
     }
 

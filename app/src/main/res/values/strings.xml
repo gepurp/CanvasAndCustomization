@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">CanvasAndCustomization</string>
+    <string name="info_small_brush">Small Brush</string>
+    <string name="info_medium_brush">Medium Brush</string>
+    <string name="info_large_brush">Large Brush</string>
 </resources>
