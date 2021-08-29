@@ -1,9 +1,13 @@
 package com.octo.canvasandcustomization
 
 import android.Manifest
+import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.octo.canvasandcustomization.databinding.ActivityMainBinding
 import dev.sasikanth.colorsheet.ColorSheet
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val STORAGE_PERMISSION_CODE = 1
+        private const val GALLERY_REQUEST = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,6 +143,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pickImageFromGallery() {
-        // TODO: Needs to implement
+        val pickPhotoIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        startActivityForResult(pickPhotoIntent, GALLERY_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == GALLERY_REQUEST) {
+                try {
+                    if (data!!.data != null) {
+                        binding.ivCanvasBackground.visibility = View.VISIBLE
+                        binding.ivCanvasBackground.setImageURI(data.data)
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Error in parsing the image...",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 }
