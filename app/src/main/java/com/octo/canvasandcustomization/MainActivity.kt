@@ -1,9 +1,9 @@
 package com.octo.canvasandcustomization
 
 import android.app.Dialog
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import com.octo.canvasandcustomization.databinding.ActivityMainBinding
 import dev.sasikanth.colorsheet.ColorSheet
 
