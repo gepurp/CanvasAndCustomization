@@ -6,13 +6,28 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.octo.canvasandcustomization.DrawingView
-        android:id="@+id/dv_drawing"
+    <FrameLayout
+        android:id="@+id/fl_drawing_view_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:background="@drawable/background_drawing_layout" />
+        android:background="@drawable/background_drawing_layout"
+        android:padding="1dp">
+
+        <ImageView
+            android:id="@+id/iv_canvas_background"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/canvas_backgroun"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.octo.canvasandcustomization.DrawingView
+            android:id="@+id/dv_drawing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
