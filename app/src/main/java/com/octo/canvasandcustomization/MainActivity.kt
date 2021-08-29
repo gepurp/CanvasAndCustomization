@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
                     requestStoragePermission()
                 }
             }
+            ibUndo.setOnClickListener {
+                binding.dvDrawing.undo()
+            }
         }
     }
 

@@ -20,6 +20,7 @@ class DrawingView(
     private var brushSize: Float = 0.toFloat()
     private var color = Color.GRAY
     private val paths = ArrayList<CustomPath>()
+    private val undoPaths = ArrayList<CustomPath>()
 
     init {
         initDrawing()
@@ -96,6 +97,13 @@ class DrawingView(
 
     fun setBrushColor(c: Int) {
         color = c
+    }
+
+    fun undo() {
+        if (paths.size > 0) {
+            undoPaths.add(paths.removeAt(paths.size - 1))
+            invalidate()
+        }
     }
 
     internal inner class CustomPath(var color: Int, var brushThickness: Float) : Path()
