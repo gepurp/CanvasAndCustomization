@@ -63,6 +63,13 @@
             android:layout_height="50dp"
             android:layout_marginHorizontal="4dp"
             android:src="@drawable/ic_image_search" />
+
+        <ImageButton
+            android:id="@+id/ib_save_to_gallery"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="4dp"
+            android:src="@drawable/ic_save" />
     </LinearLayout>
 
 </LinearLayout>
