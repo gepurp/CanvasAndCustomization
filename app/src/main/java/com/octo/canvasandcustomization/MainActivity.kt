@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -18,7 +19,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.octo.canvasandcustomization.databinding.ActivityMainBinding
 import dev.sasikanth.colorsheet.ColorSheet
-import java.lang.Exception
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +56,13 @@ class MainActivity : AppCompatActivity() {
             }
             ibUndo.setOnClickListener {
                 binding.dvDrawing.undo()
+            }
+            ibSaveToGallery.setOnClickListener {
+                if (isStorageAccessAllowed()) {
+                    BitmapAsyncTask(getBitmapFromView(binding.flDrawingViewContainer)).execute()
+                } else {
+                    requestStoragePermission()
+                }
             }
         }
     }
@@ -195,5 +205,57 @@ class MainActivity : AppCompatActivity() {
 
         view.draw(canvas)
         return bitmap
+    }
+
+    private inner class BitmapAsyncTask(val bitmap: Bitmap?) :
+        AsyncTask<Any, Void, String>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg params: Any?): String {
+            var result = ""
+
+            if (bitmap != null) {
+                try {
+                    val bytes = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes)
+                    val file = File(
+                        externalCacheDir!!.absoluteFile.toString()
+                                + File.separator
+                                + "DrawingApp_"
+                                + System.currentTimeMillis() / 10000
+                                + ".png"
+                    )
+                    val fos = FileOutputStream(file)
+                    fos.write(bytes.toByteArray())
+                    fos.close()
+                    result = file.absolutePath
+                } catch (e: Exception) {
+                    result = ""
+                    e.printStackTrace()
+
+                }
+            }
+
+            return result
+        }
+
+        override fun onPostExecute(result: String) {
+            super.onPostExecute(result)
+            if (!result.isEmpty()) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "File saved successfully: $result",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Something went wrong while saving the file",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 }
