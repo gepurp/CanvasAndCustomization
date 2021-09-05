@@ -6,8 +6,6 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.octo.canvasandcustomization.Utils.getBitmapFromView
 import com.octo.canvasandcustomization.databinding.ActivityMainBinding
 import dev.sasikanth.colorsheet.ColorSheet
 import java.io.ByteArrayOutputStream
@@ -186,25 +185,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun getBitmapFromView(view: View): Bitmap {
-        val bitmap = Bitmap.createBitmap(
-            view.width,
-            view.height,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        val background = view.background
-
-        if (background != null) {
-            background.draw(canvas)
-        } else {
-            canvas.drawColor(Color.WHITE)
-        }
-
-        view.draw(canvas)
-        return bitmap
     }
 
     private inner class BitmapAsyncTask(val bitmap: Bitmap?) :
